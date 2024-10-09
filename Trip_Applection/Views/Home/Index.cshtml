@@ -1,0 +1,66 @@
+﻿@using Microsoft.EntityFrameworkCore
+
+@model List<Trip>
+@inject TravelsContext Db
+@{
+    var tripsWithCategoriesAndImages = Db.Trips
+        .Include(t => t.Catogry)
+        .Include(t => t.Imags)
+        .ToList();
+}
+
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white" style=" direction: rtl;">
+            <h1 class="display-4 fw-bolder">امان للترحال</h1>
+            <p class="lead fw-normal text-white-50 mb-0">ترحل وستمتع مع شركة امان للرحلات العالمية</p>
+        </div>
+    </div>
+</header>
+
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @foreach (var item in @Model)
+            {
+                <!-- Product image-->
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Sale badge-->
+                         @if (item.Imags != null && item.Imags.Any())
+                        {
+                           <img class="card-img-top" src="@Url.Content("~/Uploud/Imag/" + item.Imags.First().ImagName)" alt=""  />
+                        }
+
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                @if (item.Catogry != null)
+                                {
+                                    <h5 class="fw-bolder">@item.Catogry.Name</h5>
+                                }
+                                <!-- Product reviews-->
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                </div>
+                                <!-- Product price-->
+                                <span class="text-muted text-decoration-line-through">$500.000</span>
+                                $@item.Price
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a asp-route-id="@item.TripId" asp-action="Details" class="btn btn-outline-dark mt-auto" >عرض تفاصيل الرحلة</a></div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

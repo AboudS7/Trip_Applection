@@ -1,0 +1,35 @@
+﻿
+@model Contry
+@inject TravelsContext Db
+@{
+    var list_Contry = Db.Cities.ToList();
+}
+<div class="content-wrapper">
+    <div class="card">
+           <div class="card-body">
+                    <h4 class="card-title">Default form</h4>
+                    <p class="card-description"> Basic form layout </p>
+                    <form class="forms-sample" method="post"   asp-action="Create">
+                      <div class="form-group">
+                        <label asp-for="Name" >فئة الرحلة </label>
+                        <input type="text" class="form-control"  asp-for="Name" placeholder="Name">
+                      </div> 
+                         <div class="form-group">
+                        <label asp-for="CityId" >الدولة </label>
+                        <select asp-for="CityId" class="form-control">
+                        @foreach (var item in @list_Contry)
+                        {
+                            <option value="@item.CityId">@item.Name</option>
+                        }
+                        </select>
+                       
+                      </div>
+                    <button type="submit" class="btn btn-gradient-primary btn-icon-text"> 
+                          <i class="mdi mdi-file-check btn-icon-prepend"></i>
+                          حفظ
+                      </button>
+                      <button class="btn btn-light">الغاء</button>
+                    </form>
+                  </div>
+     </div>
+</div>

@@ -1,0 +1,55 @@
+﻿
+@model Trip
+@inject TravelsContext Db
+@{
+    var list1 = Db.Contries.ToList();
+    var list2 = Db.Catogeries.ToList();
+
+}
+<div class="content-wrapper">
+    <div class="card">
+           <div class="card-body">
+                    <h4 class="card-title">Default form</h4>
+                    <p class="card-description"> Basic form layout </p>
+                    <form class="forms-sample" method="post"  asp-action="Update"> 
+                         <div class="form-group">
+                       <div class="form-group">
+                     <input type="hidden" readonly="readonly" class="form-control"  asp-for="TripId" placeholder="سعر الرحلة">
+                      </div>
+                        <label asp-for="CatogryId" >نوع الرحلة </label>
+                        <select asp-for="CatogryId" class="form-control">
+                        @foreach (var item in @list2)
+                        {
+                            <option value="@item.CatogryId">@item.Name</option>
+                        }
+                        </select>
+                       
+                      </div>
+                         <div class="form-group">
+                        <label asp-for="ContryId" >المدينة </label>
+                        <select asp-for="ContryId" class="form-control">
+                        @foreach (var item in @list1)
+                        {
+                            <option value="@item.ContryId">@item.Name</option>
+                        }
+                        </select>
+                       
+                      </div>
+                         <div class="form-group">
+                        <label asp-for="Description" >وصف الرحلة </label>
+                        <input type="text" class="form-control"  asp-for="Description" placeholder="">
+                      </div>
+                         <div class="form-group">
+                        <label asp-for="Price" >سعر الرحلة </label>
+                        <input type="number" class="form-control"  asp-for="Price" placeholder="سعر الرحلة">
+                      </div>
+                         <div class="form-group">
+                        <label asp-for="Name" >التاريخ </label>
+                        <input type="date" class="form-control"  asp-for="Name" placeholder="التاريخ">
+                      </div>
+                      <button type="submit" class="btn btn-gradient-primary me-2">تحديث</button>
+                      <button class="btn btn-light">الغاء</button>
+                    </form>
+                  </div>
+     </div>
+</div>

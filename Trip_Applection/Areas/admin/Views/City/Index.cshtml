@@ -1,0 +1,42 @@
+﻿@model List<City>
+
+<div class="card">
+    @if (@TempData.ContainsKey("msg"))
+    {
+        <div class="alert alert-info">@TempData["msg"]</div>
+    }    
+
+    <div class="card-body">
+        <a asp-action="Create" class="btn btn-gradient-info me-2">
+            <i class="mdi mdi-plus menu-icon"></i>
+        </a>
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th>رقم الدولة</th>
+                    <th>الدولة</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in @Model)
+                {
+                    <tr>
+                        <td>@item.CityId</td>
+                        <td>@item.Name</td>
+
+
+                        <td>
+                            <a asp-action="Update" asp-route-id="@item.CityId" >
+                                <i class="mdi mdi-pencil menu-icon"></i>
+                            </a>
+                         </td>
+                        
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

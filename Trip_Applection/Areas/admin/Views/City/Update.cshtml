@@ -1,0 +1,21 @@
+﻿
+@model City
+<div class="content-wrapper">
+    <div class="card">
+           <div class="card-body">
+                    <h4 class="card-title">Default form</h4>
+                    <p class="card-description"> Basic form layout </p>
+                    <form class="forms-sample" method="post" asp-controller="City" asp-action="Update">
+                         <div class="form-group">
+                        <input type="hidden" class="form-control"  asp-for="CityId" placeholder="Name">
+                      </div>
+                      <div class="form-group">
+                        <label asp-for="Name" >الدولة </label>
+                        <input type="text" class="form-control"  asp-for="Name" placeholder="Name">
+                      </div> 
+                      <button type="submit" class="btn btn-gradient-primary me-2">حفظ</button>
+                      <button class="btn btn-light">الغاء</button>
+                    </form>
+                  </div>
+     </div>
+</div>

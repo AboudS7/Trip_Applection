@@ -1,0 +1,39 @@
+﻿@using Microsoft.EntityFrameworkCore
+
+@inject TravelsContext Db
+@{
+  
+}
+@model List<Contry>
+
+<div class="card">
+    <div class="card-body">
+        <a asp-action="Create" class="btn btn-gradient-info me-2">
+            <i class="mdi mdi-plus menu-icon"></i>
+        </a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>رقم المدينة</th>
+                    <th>المدينة</th>
+                    <th>الدولة</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model)
+                {
+                    <tr>
+                        <td>@item.ContryId</td>
+                        <td>@item.Name</td>
+                        <td>@(item.City != null ? item.City.Name : "لا توجد مدينة")</td>
+                        <td>
+                            <a asp-action="Update" asp-route-id="@item.ContryId" >
+                                <i class="mdi mdi-pencil menu-icon"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

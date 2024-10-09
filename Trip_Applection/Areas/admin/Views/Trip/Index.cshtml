@@ -1,0 +1,82 @@
+﻿@using Microsoft.EntityFrameworkCore
+
+@inject TravelsContext Db
+@{
+    var list1 = Db.Trips.Include(a => a.Contry).Include(b => b.Catogry).ToList();
+
+}
+@model List<Trip>
+
+<div class="card">
+    @if (@TempData.ContainsKey("msg"))
+    {
+        <div class="alert alert-info">@TempData["msg"]</div>
+    }
+    <div class="card-body" >
+        <h4 class="card-title" style=" direction: rtl;">الرحلات</h4>
+        <a asp-action="Create" class="btn btn-gradient-info me-2">
+            <i class="mdi mdi-plus menu-icon"></i>
+        </a>
+        <div class="col-sm-4 col-md-12">
+        <table class="table" id="dataTable" width="100%">
+            <thead>
+                <tr>
+                    <th>رقم الرحلة</th>
+                    <th>نوع الرحلة</th>
+                    <th>المدينة</th>
+                    <th>وصف الرحلة</th>
+                    <th>السعر</th>
+                    <th>تاريخ الرحلة</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model)
+                {
+                    <tr>
+                        <td>@item.TripId</td>
+                        @if (@item.Catogry != null)
+                        {
+                            <td>@item.Catogry.Name</td>
+                        }
+                        else
+                        {
+                            <td>-----</td>
+                        }
+                        @if (@item.Contry != null)
+                        {
+                            <td>@item.Contry.Name</td>
+                        }
+                        else
+                        {
+                            <td>-----</td>
+                        }
+                        <td class="content-area">@item.Description</td>
+                        <td>$@item.Price</td>
+                        <td>@item.Name</td>
+                        <td>
+                            <a asp-action="Update" asp-route-id="@item.TripId" >
+                                <i class="mdi mdi-pencil menu-icon"></i>
+                            </a>
+                            </td>
+                            <td>
+                            <a asp-action="Delete" asp-route-id="@item.TripId" >
+                                <i class="remove mdi mdi-close-circle-outline"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+
+    </div>
+</div>
+   @section Script{
+    <!-- Page level plugins -->
+    <script src="~/File/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/File/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="~/File/js/demo/datatables-demo.js"></script>
+    }

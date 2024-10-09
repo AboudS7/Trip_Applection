@@ -1,0 +1,70 @@
+﻿@using Microsoft.EntityFrameworkCore
+
+@model Imag
+@inject TravelsContext Db
+@{
+    var list = Db.Trips.Include(a=>a.Contry).ToList();
+}
+<div class="content-wrapper">
+ <div class="row">
+  <div class="col-md-8 grid-margin stretch-card">
+      <div class="card">
+   <div class="card-body">
+                    <h4 class="card-title">Default form</h4>
+                    <p class="card-description"> Basic form layout </p>
+                    <form class="forms-sample" method="post" asp-action="Create" enctype="multipart/form-data">
+                 
+                     <select asp-for="TripId" class="form-control" >
+                            @if (@list != null)
+                            {
+                                @foreach (var item in list)
+                                {
+                                    <option  value="@item.TripId">@item.Contry.Name</option>
+                                }
+                            }
+                        </select>
+                     <div class="form-group">
+                        <label asp-for="ImagName">Imag</label>
+                        <input  class="form-control" asp-for="ImagName" type="file" placeholder=""
+                        name="Files" onchange="Uploud.UploudImage(event) " accept=".jpg, .png,.jpeg"  >
+                     </div>
+                      <button type="submit" class="btn btn-gradient-primary btn-icon-text"> 
+                          <i class="mdi mdi-file-check btn-icon-prepend"></i>
+                          حفظ
+                      </button>
+                      <button class="btn btn-light">الغاء</button>
+                    </form>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 grid-margin stretch-card">
+                  <div class="card">
+                      <div class="card-body">
+                          <span id="imgName"></span>
+                              <div id="imgSrc"></div>
+                      </div>
+                  </div>
+                  </div>
+         
+</div>
+ </div>
+@section Script{
+
+    <script>
+        var Uploud={
+            UploudImage:function (e){
+                const file=e.target.files[0];
+                const  reader=new FileReader();
+                reader.onloadend= () =>{
+                    CourseMediaImgName=file.name;
+                    CourseMediaImgNameBase64=reader.result.slice(reader.result.indexOf('base64,')+7);
+                    $("#imgName").html(file.name);
+                    $("#imgSrc").html(`<img class="thumbnail" src= "${reader.result}" style="width: 200px;height: 300px">`);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+}
+
+                              

@@ -1,0 +1,40 @@
+﻿@model List<Catogery>
+
+<div class="card">
+    <div class="card-body">
+        <a asp-action="Create" class="btn btn-gradient-info me-2">
+            <i class="mdi mdi-plus menu-icon"></i>
+        </a>
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th>الرقم</th>
+                    <th>نوع الرحلة</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model)
+                {
+                    <tr>
+                        <td>@item.CatogryId</td>
+                        <td>@item.Name</td>
+
+
+                        <td>
+                            <a class="nav-link" asp-controller="Trip" asp-action="Index">
+                                <span class="menu-title"></span>
+                                <i class="mdi mdi-pencil menu-icon"></i>
+                            </a>
+                        </td>
+                       @* <td>
+                            <a asp-action="Delete" asp-route-id="@item.CatogryId">
+                                <i class="remove mdi mdi-close-circle-outline"></i>
+                            </a>
+                        </td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

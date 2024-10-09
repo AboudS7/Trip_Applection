@@ -1,0 +1,43 @@
+﻿@using Microsoft.EntityFrameworkCore
+@model List<Imag>
+
+<div class="card">
+    <div class="card-body">
+        <a asp-action="Create" class="btn btn-gradient-info me-2">
+            <i class="mdi mdi-plus menu-icon"></i>
+        </a>
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th>الصورة</th>
+                    <th>المدينة</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in @Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="@Url.Content("~/Uploud/Imag/" + item.ImagName)" alt="@item.ImagName" class="me-2" />
+                        </td>
+                        <td>@item.Trip.Contry.Name</td>
+
+                        <td>
+                            <a asp-action="Update" asp-route-id="@item.ImagId" >
+                                <i class="mdi mdi-pencil menu-icon"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.ImagId">
+                                <i class="remove mdi mdi-close-circle-outline"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

@@ -1,0 +1,56 @@
+﻿
+@model Trip
+@inject TravelsContext Db
+@{
+    var list1 = Db.Contries.ToList();
+    var list2 = Db.Catogeries.ToList();
+
+}
+<div class="content-wrapper">
+    <div class="card">
+           <div class="card-body">
+                    <h4 class="card-title">اضافة بيانات</h4>
+                    <form class="forms-sample" method="post"   asp-action="Create"> 
+                         <div class="form-group">
+                        <label asp-for="CatogryId" >نوع الرحلة </label>
+                        <select asp-for="CatogryId" class="form-control">
+                        @foreach (var item in @list2)
+                        {
+                            <option value="@item.CatogryId">@item.Name</option>
+                        }
+                        </select>
+                       
+                      </div>
+                         <div class="form-group">
+                        <label asp-for="ContryId" >المدينة </label>
+                        <select asp-for="ContryId" class="form-control " >
+                        @foreach (var item in @list1)
+                        {
+                            <option class="dropdown-item" value="@item.ContryId">@item.Name</option>
+                        }
+                        </select>
+                       
+                      </div>
+                         <div class="form-group">
+                        <label asp-for="Description" >وصف الرحلة </label>
+                        <input type="text"  class="aria-atomic form-control "  asp-for="Description" placeholder="">
+                      </div>
+                         <div class="form-group">
+                        <label asp-for="Price" >سعر الرحلة </label>
+                        <input type="number" class="form-control"  asp-for="Price" placeholder="سعر الرحلة">
+                      </div>
+                         <div class="form-group">
+                        <label asp-for="Name" >التاريخ </label>
+                        <input type="date" class="form-control"  asp-for="Name" placeholder="التاريخ">
+                      </div>
+                      <button type="submit" class="btn btn-gradient-primary btn-icon-text"> 
+                          <i class="mdi mdi-file-check btn-icon-prepend"></i>
+                          حفظ
+                      </button>
+                      <button class="btn btn-light">الغاء</button>
+                    </form>
+                  </div>
+
+     </div>
+</div>
+
